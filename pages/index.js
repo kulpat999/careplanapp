@@ -41,6 +41,13 @@ export default function Home() {
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      {/* Display the logo */}
+      <img 
+        src="/logo.png" 
+        alt="Right at Home Logo" 
+        style={{ width: '150px', marginBottom: '20px' }} 
+      />
+      
       <h1>Right at Home - Care Plan Generator</h1>
 
       {!submitted ? (
