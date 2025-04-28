@@ -23,6 +23,22 @@ export default function Home() {
     setSubmitted(true);
   };
 
+  const formatText = (text) => {
+    const bulletPoints = text.split("\n").filter(item => item.trim() !== "");
+
+    // Convert bullet points into a well-structured paragraph with natural flow
+    let paragraph = bulletPoints.map((item, index) => {
+      let formattedItem = item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
+      if (index === bulletPoints.length - 1) {
+        return `and ${formattedItem}.`;
+      } else {
+        return `${formattedItem}, `;
+      }
+    }).join('');
+    
+    return paragraph;
+  };
+
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1>Right at Home - Care Plan Generator</h1>
@@ -51,11 +67,14 @@ export default function Home() {
         <div style={{ marginTop: '20px' }}>
           <h2>Generated Care Plan</h2>
           <div style={{ background: '#f9f9f9', padding: '20px', borderRadius: '5px' }}>
-            {Object.keys(formData).map((key) => (
-              <p key={key}>
-                <strong>{key.replace(/([A-Z])/g, ' $1')}:</strong> {formData[key]}
-              </p>
-            ))}
+            <p><strong>Desired Outcome:</strong> {formatText(formData.desiredOutcome)}</p>
+            <p><strong>Support Needs:</strong> {formatText(formData.supportNeeds)}</p>
+            <p><strong>Health Summary:</strong> {formatText(formData.healthSummary)}</p>
+            <p><strong>Mobility:</strong> {formatText(formData.mobility)}</p>
+            <p><strong>Medication:</strong> {formatText(formData.medication)}</p>
+            <p><strong>Daily Routine:</strong> {formatText(formData.dailyRoutine)}</p>
+            <p><strong>Risks:</strong> {formatText(formData.risks)}</p>
+            <p><strong>Consent:</strong> {formatText(formData.consent)}</p>
           </div>
           <button
             onClick={() => setSubmitted(false)}
