@@ -1,0 +1,59 @@
+import { useState } from 'react';
+
+export default function CarePlanApp() {
+  const [formData, setFormData] = useState({
+    desiredOutcome: '',
+    supportNeeds: '',
+    healthSummary: '',
+    mobility: '',
+    medication: '',
+    dailyRoutine: '',
+    risks: '',
+    consent: '',
+  });
+
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <div style={{ padding: 20 }}>
+      <h1>Right at Home - Care Plan Generator</h1>
+      {!submitted ? (
+        <form onSubmit={handleSubmit}>
+          {Object.keys(formData).map((key) => (
+            <div key={key} style={{ marginBottom: 10 }}>
+              <label>{key.replace(/([A-Z])/g, ' $1')}</label>
+              <br />
+              <textarea
+                name={key}
+                value={formData[key]}
+                onChange={handleChange}
+                rows={3}
+                style={{ width: '100%', padding: 5 }}
+              />
+            </div>
+          ))}
+          <button type="submit">Generate Care Plan</button>
+        </form>
+      ) : (
+        <div>
+          <h2>Generated Care Plan</h2>
+          {Object.keys(formData).map((key) => (
+            <p key={key}>
+              <strong>{key.replace(/([A-Z])/g, ' $1')}:</strong> {formData[key]}
+            </p>
+          ))}
+          <button onClick={() => setSubmitted(false)}>Edit Again</button>
+        </div>
+      )}
+    </div>
+  );
+}
