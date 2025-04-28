@@ -25,26 +25,28 @@ export default function Home() {
 
   const formatText = (text) => {
     const bulletPoints = text.split("\n").filter(item => item.trim() !== "");
-
-    // Start the paragraph with a more natural introduction
     let paragraph = "";
 
     bulletPoints.forEach((item, index) => {
       let formattedItem = item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
       
+      // Start with "The individual requires" for the first bullet point.
       if (index === 0) {
-        // Make the first bullet point more formal
         paragraph += `The individual requires ${formattedItem}`;
       } else if (index === bulletPoints.length - 1) {
-        // For the last item, add a conclusion
+        // For the last bullet point, add "and" for smoother connection.
         paragraph += `, and ${formattedItem}.`;
       } else {
-        // For middle items, continue the sentence with commas
+        // For middle bullet points, join them with commas.
         paragraph += `, ${formattedItem}`;
       }
     });
 
-    // Return the completed paragraph
+    // Adjust the first sentence to make it more descriptive and professional.
+    if (paragraph.startsWith("The individual requires")) {
+      paragraph = paragraph.replace("The individual requires", "The individual requires assistance with");
+    }
+
     return paragraph;
   };
 
